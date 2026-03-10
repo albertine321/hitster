@@ -1,0 +1,36 @@
+version: "3.8"
+
+services:
+  # MariaDB database
+  db:
+    image: mariadb:11
+    container_name: hitster-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: hitster
+      MYSQL_USER: hitster_user
+      MYSQL_PASSWORD: hitster123
+    ports:
+      - "3307:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+
+  # Express backend
+  backend:
+    build: ./backend
+    container_name: hitster-backend
+    restart: always
+    ports:
+      - "3003:3003"
+    environment:
+      DB_HOST: db
+      DB_USER: hitster_user
+      DB_PASSWORD: hitster123
+      DB_NAME: hitster
+    depends_on:
+      - db
+
+volumes:
+  db_data:
