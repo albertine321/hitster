@@ -20,7 +20,7 @@ router.post("/session", (req, res) => {
 // Hent highscore-liste (topp 10)
 router.get("/highscores", (req, res) => {
   db.query(
-    "SELECT player_name, score, songs_played, created_at FROM game_sessions ORDER BY score DESC LIMIT 10",
+    "SELECT player_name, score, songs_played, wrong, created_at FROM game_sessions ORDER BY score DESC LIMIT 10",
     (err, results) => {
       if (err) return res.status(500).json({ error: err.message });
       res.json(results);
