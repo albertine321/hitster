@@ -23,21 +23,27 @@ export default function StartScreen({ playerCount, setPlayerCount, playerNames, 
           ))}
         </div>
 
-        <div style={{ marginBottom: 20 }}>
-          {Array.from({ length: playerCount }).map((_, i) => (
+        {Array.from({ length: playerCount }).map((_, i) => (
+        <div key={i}>
+            <label
+            htmlFor={`player-${i}`}
+            style={{ color: "#888", fontSize: 12, display: "block", marginBottom: 4, textAlign: "left" }}
+            >
+            Spiller {i + 1}
+            </label>
             <input
-              key={i}
-              style={{ ...styles.input, borderColor: `${COLORS[i]}44` }}
-              placeholder={`Spiller ${i + 1} navn...`}
-              value={playerNames[i]}
-              onChange={(e) => {
+            id={`player-${i}`}
+            style={{ ...styles.input, borderColor: `${COLORS[i]}44` }}
+            placeholder={`Spiller ${i + 1} navn...`}
+            value={playerNames[i]}
+            onChange={(e) => {
                 const updated = [...playerNames];
                 updated[i] = e.target.value;
                 setPlayerNames(updated);
-              }}
+            }}
             />
-          ))}
         </div>
+        ))}
 
         <button style={styles.primaryBtn} onClick={startGame}>START SPILLET →</button>
         <button style={styles.highscoreBtn} onClick={fetchHighscores}>🏆 Se highscores</button>

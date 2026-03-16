@@ -25,10 +25,13 @@ services:
     ports:
       - "3003:3003"
     environment:
+      environment:
       DB_HOST: db
       DB_USER: hitster_user
       DB_PASSWORD: hitster123
       DB_NAME: hitster
+      SPOTIFY_CLIENT_ID: 3ed4bd7085ce4c40b3df013f0432e28a
+      SPOTIFY_CLIENT_SECRET: bbbdfaf02e7944a0a309f361a969dd88
     depends_on:
       - db
 
