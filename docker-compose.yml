@@ -7,10 +7,10 @@ services:
     container_name: hitster-db
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: hitster
-      MYSQL_USER: hitster_user
-      MYSQL_PASSWORD: hitster123
+    MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    SPOTIFY_CLIENT_ID: ${SPOTIFY_CLIENT_ID}
+    SPOTIFY_CLIENT_SECRET: ${SPOTIFY_CLIENT_SECRET}
     ports:
       - "3307:3306"
     volumes:
