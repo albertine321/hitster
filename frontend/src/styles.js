@@ -329,6 +329,44 @@ endBtn: {
   cursor: "pointer",
 },
 
+privacySection: {
+  marginBottom: 24,
+  borderBottom: "1px solid rgba(255,255,255,0.05)",
+  paddingBottom: 16,
+},
+privacyHeading: {
+  color: "#f5c518",
+  fontSize: 16,
+  fontWeight: 700,
+  marginBottom: 8,
+},
+privacyText: {
+  color: "#aaa",
+  fontSize: 14,
+  lineHeight: 1.7,
+},
+
+footer: {
+  borderTop: "1px solid rgba(245,197,24,0.1)",
+  padding: "12px 24px",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  gap: 12,
+  background: "linear-gradient(180deg, #0a0a14 0%, #150a25 100%)",
+  marginTop: "auto",
+},
+footerText: {
+  color: "#444",
+  fontSize: 12,
+},
+footerDivider: {
+  color: "#333",
+  fontSize: 12,
+},
+
 };
+
+
 
 export default styles;

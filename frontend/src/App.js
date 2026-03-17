@@ -3,6 +3,8 @@ import StartScreen from "./components/Startscreen";
 import GameScreen from "./components/Gamescreen";
 import Resultscreen from "./components/Resultscreen";
 import Highscores from "./components/Highscores";
+import Footer from "./components/Footer";
+import Personvern from "./components/Personvern";
 
 const API = "http://localhost:3003";
 
@@ -163,35 +165,15 @@ export default function App() {
     fetchSong(seenIds);
   };
 
-if (screen === "start") {
-  return <StartScreen playerCount={playerCount} setPlayerCount={setPlayerCount} playerNames={playerNames} setPlayerNames={setPlayerNames} startGame={startGame} fetchHighscores={fetchHighscores} />;
-}
+return (
+  <>
+    {screen === "start" && <StartScreen playerCount={playerCount} setPlayerCount={setPlayerCount} playerNames={playerNames} setPlayerNames={setPlayerNames} startGame={startGame} fetchHighscores={fetchHighscores} />}
+    {screen === "highscores" && <Highscores highscores={highscores} setScreen={setScreen} resetGame={resetGame} />}
+    {screen === "result" && <Resultscreen players={players} fetchHighscores={fetchHighscores} resetGame={resetGame} />}
+    {screen === "game" && <GameScreen players={players} currentPlayerIndex={currentPlayerIndex} currentCard={currentCard} feedback={feedback} dragOverSlot={dragOverSlot} setDragOverSlot={setDragOverSlot} loading={loading} round={round} placeCard={placeCard} nextTurn={nextTurn} setScreen={setScreen} selectedTrash={selectedTrash} setSelectedTrash={setSelectedTrash} />}
+    {screen === "personvern" && <Personvern setScreen={setScreen} />}
+    <Footer setScreen={setScreen} />
+  </>
+);
 
-if (screen === "highscores") {
-  return <Highscores highscores={highscores} setScreen={setScreen} resetGame={resetGame} />;
-}
-
-if (screen === "result") {
-  return <Resultscreen players={players} fetchHighscores={fetchHighscores} resetGame={resetGame} />;
-}
-
-if (screen === "game") {
-  return (
-    <GameScreen
-      players={players}
-      currentPlayerIndex={currentPlayerIndex}
-      currentCard={currentCard}
-      feedback={feedback}
-      dragOverSlot={dragOverSlot}
-      setDragOverSlot={setDragOverSlot}
-      loading={loading}
-      round={round}
-      placeCard={placeCard}
-      nextTurn={nextTurn}
-      setScreen={setScreen}
-      selectedTrash={selectedTrash}
-      setSelectedTrash={setSelectedTrash}
-    />
-  );
-}
 }
