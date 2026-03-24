@@ -7,10 +7,10 @@ services:
     container_name: hitster-db
     restart: always
     environment:
-    MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-    MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-    SPOTIFY_CLIENT_ID: ${SPOTIFY_CLIENT_ID}
-    SPOTIFY_CLIENT_SECRET: ${SPOTIFY_CLIENT_SECRET}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      SPOTIFY_CLIENT_ID: ${SPOTIFY_CLIENT_ID}
+      SPOTIFY_CLIENT_SECRET: ${SPOTIFY_CLIENT_SECRET}
     ports:
       - "3307:3306"
     volumes:
@@ -25,13 +25,12 @@ services:
     ports:
       - "3003:3003"
     environment:
-      environment:
       DB_HOST: db
       DB_USER: hitster_user
-      DB_PASSWORD: hitster123
+      DB_PASSWORD: ${MYSQL_PASSWORD}
       DB_NAME: hitster
-      SPOTIFY_CLIENT_ID: 3ed4bd7085ce4c40b3df013f0432e28a
-      SPOTIFY_CLIENT_SECRET: bbbdfaf02e7944a0a309f361a969dd88
+      SPOTIFY_CLIENT_ID: ${SPOTIFY_CLIENT_ID}
+      SPOTIFY_CLIENT_SECRET: ${SPOTIFY_CLIENT_SECRET}
     depends_on:
       - db
 

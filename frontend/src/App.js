@@ -5,6 +5,7 @@ import Resultscreen from "./components/Resultscreen";
 import Highscores from "./components/Highscores";
 import Footer from "./components/Footer";
 import Personvern from "./components/Personvern";
+import Regler from "./components/Regler";
 
 const API = "http://localhost:3003";
 
@@ -167,11 +168,12 @@ export default function App() {
 
 return (
   <>
-    {screen === "start" && <StartScreen playerCount={playerCount} setPlayerCount={setPlayerCount} playerNames={playerNames} setPlayerNames={setPlayerNames} startGame={startGame} fetchHighscores={fetchHighscores} />}
+    {screen === "start" && <StartScreen playerCount={playerCount} setPlayerCount={setPlayerCount} playerNames={playerNames} setPlayerNames={setPlayerNames} startGame={startGame} fetchHighscores={fetchHighscores} setScreen={setScreen} />}
     {screen === "highscores" && <Highscores highscores={highscores} setScreen={setScreen} resetGame={resetGame} />}
     {screen === "result" && <Resultscreen players={players} fetchHighscores={fetchHighscores} resetGame={resetGame} />}
     {screen === "game" && <GameScreen players={players} currentPlayerIndex={currentPlayerIndex} currentCard={currentCard} feedback={feedback} dragOverSlot={dragOverSlot} setDragOverSlot={setDragOverSlot} loading={loading} round={round} placeCard={placeCard} nextTurn={nextTurn} setScreen={setScreen} selectedTrash={selectedTrash} setSelectedTrash={setSelectedTrash} />}
     {screen === "personvern" && <Personvern setScreen={setScreen} />}
+    {screen === "regler" && <Regler setScreen={setScreen}/>}
     <Footer setScreen={setScreen} />
   </>
 );

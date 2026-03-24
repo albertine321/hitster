@@ -2,7 +2,7 @@ import styles from "../styles";
 
 const COLORS = ["#f5c518", "#2ed573", "#ff4757", "#1e90ff"];
 
-export default function StartScreen({ playerCount, setPlayerCount, playerNames, setPlayerNames, startGame, fetchHighscores }) {
+export default function StartScreen({ playerCount, setPlayerCount, playerNames, setPlayerNames, startGame, fetchHighscores, setScreen }) {
   return (
     <div style={styles.bg}>
       <div style={styles.startCard}>
@@ -47,6 +47,7 @@ export default function StartScreen({ playerCount, setPlayerCount, playerNames, 
 
         <button style={styles.primaryBtn} onClick={startGame}>START SPILLET →</button>
         <button style={styles.highscoreBtn} onClick={fetchHighscores}>🏆 Se highscores</button>
+        <button style={styles.highscoreBtn} onClick={() => setScreen("regler")}>📖 Se spilleregler</button>
       </div>
     </div>
   );

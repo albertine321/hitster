@@ -71,6 +71,7 @@ const styles = {
   highscoreBtn: {
     padding: "11px 28px",
     background: "transparent",
+    marginBottom: 10,
     color: "#f5c518",
     border: "1px solid rgba(245,197,24,0.3)",
     borderRadius: 10,
