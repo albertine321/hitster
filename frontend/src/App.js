@@ -7,7 +7,8 @@ import Footer from "./components/Footer";
 import Personvern from "./components/Personvern";
 import Regler from "./components/Regler";
 
-const API = "http://localhost:3003";
+const API = process.env.DB_URL || "http://localhost:3003";
+console.log("API URL:", API);
 
 const COLORS = ["#f5c518", "#2ed573", "#ff4757", "#1e90ff"];
 
@@ -33,7 +34,13 @@ export default function App() {
     let attempts = 0;
     while (!song && attempts < 15) {
       const res = await fetch(`${API}/api/songs/random`);
+      if (!res.ok) {
+        // nothing available or server error; wait and retry
+        attempts++;
+        continue;
+      }
       const data = await res.json();
+      if (!data) { attempts++; continue; }
       if (!excludeIds.includes(data.id)) song = data;
       attempts++;
     }
@@ -71,12 +78,22 @@ export default function App() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ player_name: name }),
       });
+      if (!res.ok) {
+        const text = await res.text().catch(() => "");
+        console.error("Failed creating session:", res.status, text);
+        return alert("Kunne ikke opprette spilløkt for " + name);
+      }
       const data = await res.json();
 
       // Hent ankerkort for hver spiller
       let anchor = null;
       while (!anchor) {
         const r = await fetch(`${API}/api/songs/random`);
+        if (!r.ok) {
+          // no songs yet, retry
+          await new Promise(res => setTimeout(res, 200));
+          continue;
+        }
         anchor = await r.json();
       }
 
@@ -103,6 +120,7 @@ export default function App() {
     let attempts = 0;
     while (!song && attempts < 15) {
       const r = await fetch(`${API}/api/songs/random`);
+      console.log("REquest to ", `${API}/api/songs/random`);
       const d = await r.json();
       if (!allAnchorIds.includes(d.id)) song = d;
       attempts++;

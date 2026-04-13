@@ -6,6 +6,9 @@ const db = require("../db");
 router.get("/random", (req, res) => {
   db.query("SELECT * FROM songs ORDER BY RAND() LIMIT 1", (err, results) => {
     if (err) return res.status(500).json({ error: err.message });
+    if (!results || results.length === 0) {
+      return res.status(404).json({ error: "No songs found" });
+    }
     res.json(results[0]);
   });
 });
@@ -14,6 +17,7 @@ router.get("/random", (req, res) => {
 router.get("/", (req, res) => {
   db.query("SELECT * FROM songs", (err, results) => {
     if (err) return res.status(500).json({ error: err.message });
+    if (!results) return res.status(500).json({ error: "Failed to fetch songs" });
     res.json(results);
   });
 });

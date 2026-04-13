@@ -7,15 +7,26 @@ services:
     container_name: hitster-db
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MARIADB_ROOT_PASSWORD: "root"
+      MARIADB_USER: hitster_user
+      MARIADB_PASSWORD: hitster_password
+      MARIADB_DATABASE: hitster
       SPOTIFY_CLIENT_ID: ${SPOTIFY_CLIENT_ID}
       SPOTIFY_CLIENT_SECRET: ${SPOTIFY_CLIENT_SECRET}
     ports:
       - "3307:3306"
     volumes:
       - db_data:/var/lib/mysql
-      - ./database/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+      - ./database:/docker-entrypoint-initdb.d/
+
+  frontend:
+    build: ./frontend
+    container_name: hitster-frontend
+    restart: always
+    ports:
+      - "3001:3000"
+    depends_on:
+      - backend
 
   # Express backend
   backend:
@@ -27,7 +38,8 @@ services:
     environment:
       DB_HOST: db
       DB_USER: hitster_user
-      DB_PASSWORD: ${MYSQL_PASSWORD}
+      # make sure this matches the password created during DB init
+      DB_PASSWORD: hitster_password
       DB_NAME: hitster
       SPOTIFY_CLIENT_ID: ${SPOTIFY_CLIENT_ID}
       SPOTIFY_CLIENT_SECRET: ${SPOTIFY_CLIENT_SECRET}
